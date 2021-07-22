@@ -69,6 +69,7 @@ class App extends React.Component {
       showType,
       hashError: output.stats.failures,
       images: [],
+      additionalPicNum:0,
     };
   }
 
@@ -135,7 +136,12 @@ class App extends React.Component {
       showType: e.target.value,
     });
   }
-
+  setIndex(index,subIndex){
+    if(subIndex>0){
+      this.state.additionalPicNum++
+    }
+    return index + this.state.additionalPicNum
+  }
   renderImages(images) {
     if (this.state.showType !== 'image') {
       return null;
@@ -153,7 +159,7 @@ class App extends React.Component {
         <Col key={ _.guid() } span={4} style={{ padding: '5px' }}>
           <Card
             hoverable
-            cover={<img data-index={index} className="picture-item" src={ item } data-title={ title } />}
+            cover={<img data-index={this.setIndex(index,key)} className="picture-item" src={ item } data-title={ title } />}
           >
             <Meta
               description={ title.split(' -- ') && title.split(' -- ').reverse()[0] }
